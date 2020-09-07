@@ -1,24 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Grid } from '@material-ui/core';
+import Header from './Header/Header';
+import Posts from './Components/Posts/Posts';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import NotFound from './Components/NotFound/NotFound';
+import PostDetail from './Components/PostDetail/PostDetail';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+         <Router>
+        <Grid container direction="column">
+          <Grid item>
+            <Header></Header>
+          </Grid>
+          <Grid item container>
+            <Grid item xs={false} sm={2}/>
+            <Grid item xs={12} sm={8}>
+              <Switch>
+                <Route exact path='/'>
+                  <Posts></Posts>
+                </Route>
+                <Route path='/Post_Details/:id'>
+                  <PostDetail></PostDetail>
+                </Route>
+                <Route path="*">
+                  <NotFound></NotFound>
+                </Route>
+              </Switch>
+            </Grid>
+            <Grid item xs={false} sm={2}/>
+          </Grid>
+        </Grid>
+        </Router>
     </div>
   );
 }
